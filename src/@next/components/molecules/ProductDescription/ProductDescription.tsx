@@ -53,12 +53,24 @@ export const ProductDescription: React.FC<IProps> = ({
       <div hidden={activeTab !== TABS.ATTRIBUTES}>
         <S.AttributeList>
           {attributes &&
-            attributes.map((attribute, index) => (
-              <li key={index}>
-                <S.AttributeName>{attribute.attribute.name}: </S.AttributeName>{" "}
-                {attribute.values.map(value => value.name).join(", ")}
-              </li>
-            ))}
+            attributes.map((attribute: any, index) => {
+              if (
+                ![
+                  "MSRP",
+                  "Minimum order quantity",
+                  "Multiple of minimum order quantity",
+                ].includes(attribute.attribute.name)
+              ) {
+                return (
+                  <li key={index}>
+                    <S.AttributeName>
+                      {attribute.attribute.name}:
+                    </S.AttributeName>{" "}
+                    {attribute.values.map(value => value.name).join(", ")}
+                  </li>
+                );
+              }
+            })}
         </S.AttributeList>
       </div>
     </S.Wrapper>
