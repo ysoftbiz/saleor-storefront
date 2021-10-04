@@ -61,6 +61,9 @@ export const commonMessages = defineMessages({
   maxQtyIs: {
     defaultMessage: "Maximum quantity is {maxQuantity}",
   },
+  minQtyIs: {
+    defaultMessage: "Minimum quantity is {minQuantity}",
+  },
   qty: {
     defaultMessage: "Quantity",
   },

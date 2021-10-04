@@ -1,3 +1,5 @@
+import { Money } from "@components/containers";
+
 import { ICheckoutModelLine } from "@saleor/sdk/lib/helpers";
 import {
   ProductDetails_product_pricing,
@@ -8,7 +10,7 @@ import React, { useState } from "react";
 import { useIntl } from "react-intl";
 
 import { commonMessages } from "@temp/intl";
-import { IProductVariantsAttributesSelectedValues } from "@types";
+import { IMoney, IProductVariantsAttributesSelectedValues } from "@types";
 
 import AddToCartButton from "../../molecules/AddToCartButton";
 import QuantityInput from "../../molecules/QuantityInput";
@@ -35,6 +37,8 @@ export interface IAddToCartSection {
   setVariantId(variantId: string): void;
   onAddToCart(variantId: string, quantity?: number): void;
   onAttributeChangeHandler(slug: string | null, value: string): void;
+  productMSRP: string;
+  minQuantity: number;
 }
 
 const AddToCartSection: React.FC<IAddToCartSection> = ({
@@ -49,6 +53,8 @@ const AddToCartSection: React.FC<IAddToCartSection> = ({
   onAttributeChangeHandler,
   setVariantId,
   variantId,
+  productMSRP,
+  minQuantity,
 }) => {
   const intl = useIntl();
 
@@ -109,6 +115,14 @@ const AddToCartSection: React.FC<IAddToCartSection> = ({
     setVariantStock(selectedVariant?.quantityAvailable);
   };
 
+  const msrpDetails: IMoney = {
+    amount: 0,
+    currency: "EUR",
+  };
+  if (productMSRP) {
+    msrpDetails.amount = Number(productMSRP);
+  }
+
   return (
     <S.AddToCartSelection>
       <S.ProductNameHeader data-test="productName">{name}</S.ProductNameHeader>
@@ -122,6 +136,16 @@ const AddToCartSection: React.FC<IAddToCartSection> = ({
           {getProductPrice(productPricing, variantPricing)}
         </S.ProductPricing>
       )}
+
+      {productMSRP ? (
+        <S.ProductMSRP data-test="productMSRP">
+          Recommended sell price:&nbsp;
+          <Money money={msrpDetails} />
+        </S.ProductMSRP>
+      ) : (
+        ""
+      )}
+
       {noPurchaseAvailable &&
         renderErrorMessage(
           intl.formatMessage(commonMessages.noPurchaseAvailable),
@@ -164,6 +188,7 @@ const AddToCartSection: React.FC<IAddToCartSection> = ({
       <S.QuantityInput>
         <QuantityInput
           quantity={quantity}
+          minQuantity={minQuantity}
           maxQuantity={availableQuantity}
           disabled={isOutOfStock || isNoItemsAvailable}
           onQuantityChange={setQuantity}

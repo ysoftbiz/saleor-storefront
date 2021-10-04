@@ -6,6 +6,7 @@ import { commonMessages } from "@temp/intl";
 
 export interface IQuantityInput {
   quantity: number;
+  minQuantity: number;
   maxQuantity: number;
   disabled: boolean;
   onQuantityChange: (value: number) => void;
@@ -24,6 +25,7 @@ export interface IQuantityInput {
 export const QuantityInput: React.FC<IQuantityInput> = ({
   disabled,
   quantity,
+  minQuantity,
   maxQuantity,
   onQuantityChange,
   hideErrors,
@@ -31,11 +33,18 @@ export const QuantityInput: React.FC<IQuantityInput> = ({
   testingContextId,
 }) => {
   const [isTooMuch, setIsTooMuch] = useState(false);
+  const [isTooFew, setIsTooFew] = useState(false);
   const intl = useIntl();
+
+  if (!minQuantity) minQuantity = 1;
+  if (quantity < minQuantity) {
+    quantity = minQuantity;
+  }
 
   useEffect(() => {
     setIsTooMuch(!isNaN(quantity) && quantity > maxQuantity);
-  }, [quantity, maxQuantity]);
+    setIsTooFew(!isNaN(quantity) && quantity < minQuantity);
+  }, [quantity, minQuantity, maxQuantity]);
 
   const handleQuantityChange = (evt: React.ChangeEvent<any>) => {
     const newQuantity = parseInt(evt.target.value, 10);
@@ -43,26 +52,41 @@ export const QuantityInput: React.FC<IQuantityInput> = ({
     if (quantity !== newQuantity) {
       onQuantityChange(newQuantity);
     }
+    setIsTooFew(!isNaN(newQuantity) && newQuantity < minQuantity);
     setIsTooMuch(!isNaN(newQuantity) && newQuantity > maxQuantity);
   };
 
-  const quantityErrors =
-    !hideErrors && isTooMuch
-      ? [
+  const quantityErrors: any = () => {
+    if (!hideErrors) {
+      if (isTooMuch) {
+        return [
           {
             message: intl.formatMessage(commonMessages.maxQtyIs, {
               maxQuantity,
             }),
           },
-        ]
-      : undefined;
+        ];
+      }
+
+      if (isTooFew) {
+        return [
+          {
+            message: intl.formatMessage(commonMessages.minQtyIs, {
+              minQuantity,
+            }),
+          },
+        ];
+      }
+    }
+    return undefined;
+  };
 
   return (
     <TextField
       name="quantity"
       type="number"
       label={intl.formatMessage(commonMessages.quantity)}
-      min="1"
+      min="{minQuantity.toString()}"
       value={quantity.toString()}
       disabled={disabled}
       onChange={handleQuantityChange}

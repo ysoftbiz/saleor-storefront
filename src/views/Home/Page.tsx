@@ -42,22 +42,7 @@ const Page: React.FC<{
             : null
         }
       >
-        <div className="home-page__hero-text">
-          <div>
-            <span className="home-page__hero__title">
-              <h1>
-                <FormattedMessage defaultMessage="Final reduction" />
-              </h1>
-            </span>
-          </div>
-          <div>
-            <span className="home-page__hero__title">
-              <h1>
-                <FormattedMessage defaultMessage="Up to 70% off sale" />
-              </h1>
-            </span>
-          </div>
-        </div>
+        <div className="home-page__hero-text">Buy mobile phones!</div>
         <div className="home-page__hero-action">
           {categoriesExist() && (
             <Link

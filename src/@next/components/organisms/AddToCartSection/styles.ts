@@ -38,3 +38,8 @@ export const QuantityInput = styled.div`
 export const ErrorMessage = styled.p`
   color: ${props => props.theme.colors.error};
 `;
+
+export const ProductMSRP = styled.h4`
+  font-weight: ${props => props.theme.typography.boldFontWeight};
+  margin-bottom: ${props => props.theme.spacing.spacer};
+`;

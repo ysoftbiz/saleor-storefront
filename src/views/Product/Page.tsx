@@ -64,6 +64,20 @@ const Page: React.FC<
     overlayContext.show(OverlayType.cart, OverlayTheme.right);
   };
 
+  // get msrp
+  const msrp = product.attributes.find(
+    element => element.attribute.name === "MSRP"
+  );
+
+  // get min quantity
+  let minQuantity = 0;
+  const minQuantityAttribute = product.attributes.find(
+    element => element.attribute.name === "Minimum order quantity"
+  );
+  if (minQuantityAttribute) {
+    minQuantity = Number(minQuantityAttribute.values[0].name);
+  }
+
   const addToCartSection = (
     <AddToCartSection
       items={items}
@@ -71,6 +85,8 @@ const Page: React.FC<
       name={product.name}
       productVariants={product.variants}
       productPricing={product.pricing}
+      productMSRP={msrp.values[0].name}
+      minQuantity={minQuantity}
       queryAttributes={queryAttributes}
       setVariantId={setVariantId}
       variantId={variantId}

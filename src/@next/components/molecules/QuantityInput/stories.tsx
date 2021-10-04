@@ -7,6 +7,7 @@ import { IQuantityInput } from "./QuantityInput";
 
 const DEFAULT_PROPS: IQuantityInput = {
   quantity: 1,
+  minQuantity: 1,
   maxQuantity: 10,
   disabled: false,
   onQuantityChange: (value: number) => undefined,

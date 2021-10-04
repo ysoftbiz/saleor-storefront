@@ -5,7 +5,7 @@ import { paths } from "@paths";
 import { ssrMode } from "@temp/constants";
 
 export const PRODUCTS_PER_PAGE = 6;
-export const SUPPORT_EMAIL = "support@example.com";
+export const SUPPORT_EMAIL = "info@ysoft.biz";
 export const PROVIDERS = {
   BRAINTREE: {
     label: "Braintree",
@@ -64,8 +64,7 @@ export const SOCIAL_MEDIA = [
 ];
 export const META_DEFAULTS = {
   custom: [],
-  description:
-    "Open-source PWA storefront built with Saleor's e-commerce GraphQL API. Written with React and TypeScript.",
+  description: "Loris Saleor storefront demo",
   image: `${
     !ssrMode ? window.location.origin : ""
   }${require("../images/logo.svg")}`,
