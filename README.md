@@ -1,3 +1,8 @@
+>**saleor-storefront repository is `DEPRECATED`**
+>
+>We've decided to build a new storefront starting from scratch, with no fancy design, focusing solely on best practices for building commerce storefronts. The new project, called react-storefront, uses Next.js as its foundation and Tailwind for the looks. You can find it here: https://github.com/saleor/react-storefront.
+
+
 # Saleor Storefront
 
 ![1 copy 2x](https://user-images.githubusercontent.com/5421321/47798207-30aeea00-dd28-11e8-9398-3d8426836a83.png)
@@ -212,6 +217,6 @@ npm run generate
 
 This project is licensed under the BSD-3-Clause License - see the [LICENSE](https://github.com/mirumee/saleor-storefront/blob/master/LICENSE) file for details
 
-#### Crafted with ❤️ by [Mirumee Software](http://mirumee.com)
+#### Crafted with ❤️ by [Saleor Commerce](http://saleor.io)
 
-hello@mirumee.com
+hello@saleor.io
